@@ -10,7 +10,7 @@ import utilStyles from '../../styles/utils.module.css'
 export default function Post({ postData }) {
   return (
     <Layout>
-        <Head>
+        {/* <Head>
         <title>{postData.title}</title>
       </Head>
       <article>
@@ -19,35 +19,35 @@ export default function Post({ postData }) {
           <Date dateString={postData.date} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      </article>
+      </article> */}
     </Layout>
   )
 }
 
-function getAllPostIds(){
+// function getAllPostIds(){
   
-}
+// }
 
-export async function getStaticPaths() {
-  fire.firestore()
-        .collection('blog')
-        .onSnapshot(snap => {
-          const blogs = snap.docs.map(doc => ({
-            id: doc.id,
-          }));
-          setallPostsData(blogs);
-        });
-  return {
-    paths,
-    fallback: false
-  }
-}
+// export async function getStaticPaths() {
+//   fire.firestore()
+//         .collection('blog')
+//         .onSnapshot(snap => {
+//           const blogs = snap.docs.map(doc => ({
+//             id: doc.id,
+//           }));
+//           setallPostsData(blogs);
+//         });
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
 
-export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id)
-  return {
-    props: {
-      postData
-    }
-  }
-}
+// export async function getStaticProps({ params }) {
+//   const postData = await getPostData(params.id)
+//   return {
+//     props: {
+//       postData
+//     }
+//   }
+// }
