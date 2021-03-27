@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 import Layout from '../../components/layout'
 import Date from '../../components/date'
-import fire from "../config/fire-config";
+import fire from "../../config/fire-config";
 import utilStyles from '../../styles/utils.module.css'
 
 // import { getAllPostIds, getPostData } from '../../lib/posts'
