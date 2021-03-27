@@ -5,7 +5,7 @@ import Date from '../../components/date'
 
 import utilStyles from '../../styles/utils.module.css'
 
-import { getAllPostIds, getPostData } from '../../lib/posts'
+// import { getAllPostIds, getPostData } from '../../lib/posts'
 
 export default function Post({ postData }) {
   return (
@@ -24,8 +24,19 @@ export default function Post({ postData }) {
   )
 }
 
+function getAllPostIds(){
+  
+}
+
 export async function getStaticPaths() {
-  const paths = getAllPostIds()
+  fire.firestore()
+        .collection('blog')
+        .onSnapshot(snap => {
+          const blogs = snap.docs.map(doc => ({
+            id: doc.id,
+          }));
+          setallPostsData(blogs);
+        });
   return {
     paths,
     fallback: false
