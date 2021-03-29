@@ -1,53 +1,41 @@
 import Head from 'next/head'
-
 import Layout from '../../components/layout'
 import Date from '../../components/date'
-import fire from "../../config/fire-config";
 import utilStyles from '../../styles/utils.module.css'
 
-// import { getAllPostIds, getPostData } from '../../lib/posts'
-
-export default function Post({ postData }) {
+export default function Post({postData}) {
   return (
     <Layout>
-        {/* <Head>
+       <Head>
         <title>{postData.title}</title>
       </Head>
-      <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      </article> */}
+      <h1 className={utilStyles.headingLg}>{postData.title}</h1>
+      <p>{postData.content}</p>
     </Layout>
   )
 }
 
-// function getAllPostIds(){
-  
-// }
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const res = await fetch('http://localhost:3000/api/postsids')
+  const posts = await res.json()
 
-// export async function getStaticPaths() {
-//   fire.firestore()
-//         .collection('blog')
-//         .onSnapshot(snap => {
-//           const blogs = snap.docs.map(doc => ({
-//             id: doc.id,
-//           }));
-//           setallPostsData(blogs);
-//         });
-//   return {
-//     paths,
-//     fallback: false
-//   }
-// }
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.map((post) => ({
+    params: { id: post.id },
+  }))
 
-// export async function getStaticProps({ params }) {
-//   const postData = await getPostData(params.id)
-//   return {
-//     props: {
-//       postData
-//     }
-//   }
-// }
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false }
+}
+
+export async function getStaticProps({ params }) {
+  const res = await fetch(`http://localhost:3000/api/posts/${params.id}`)
+  const postData = await res.json()
+  return {
+    props: {
+      postData
+    }
+  }
+}

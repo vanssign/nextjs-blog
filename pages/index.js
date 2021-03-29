@@ -6,19 +6,7 @@ import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import fire from "../config/fire-config";
 
-export default function Home() {
-  const [allPostsData, setallPostsData] = useState([]);
-  useEffect(() => {
-      fire.firestore()
-        .collection('blog')
-        .onSnapshot(snap => {
-          const blogs = snap.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
-          setallPostsData(blogs);
-        });
-    }, []);  
+export default function Home({allPostsData}) {  
   return (
     <Layout home>
       <Head>
@@ -48,20 +36,12 @@ export default function Home() {
   );
 }
 
-// export async function getStaticProps() {
-//   var allPostsData=[]
-//   fire.firestore()
-//       .collection('blog')
-//       .onSnapshot(snap => {
-//         const blogs = snap.docs.map(doc => ({
-//           id: doc.id,
-//           ...doc.data()
-//         }));
-//         allPostsData=blogs;
-//       });
-//   return {
-//     props: {
-//       allPostsData,
-//     },
-//   };
-// }
+export async function getStaticProps() {
+  const res = await fetch('http://localhost:3000/api/posts')
+  const allPostsData = await res.json()
+  return {
+    props: {
+      allPostsData,
+    },
+  };
+}
