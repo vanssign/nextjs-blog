@@ -7,7 +7,6 @@ import utilStyles from "../styles/utils.module.css";
 import fire from "../config/fire-config";
 
 export default function Home({allPostsData}) { 
-  console.log(window.location.origin); 
   return (
     <Layout home>
       <Head>
