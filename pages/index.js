@@ -37,8 +37,13 @@ export default function Home({allPostsData}) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch('https://lifeviawindow.vercel.app//api/posts')
-  const allPostsData = await res.json()
+  var allPostsData=[];
+  const blogsRef=fire.firestore().collection('blog')
+  const snapshot=await blogsRef.get();
+  snapshot.forEach(doc => {
+    allPostsData.push({id:doc.id,
+    ...doc.data()})
+  });
   return {
     props: {
       allPostsData,

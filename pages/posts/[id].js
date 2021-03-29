@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import Layout from '../../components/layout'
 import Date from '../../components/date'
+import fire from "../../config/fire-config";
 import utilStyles from '../../styles/utils.module.css'
 
-export default function Post({postData}) {
+export default function Post({ postData }) {
   return (
     <Layout>
-       <Head>
+      <Head>
         <title>{postData.title}</title>
       </Head>
       <h1 className={utilStyles.headingLg}>{postData.title}</h1>
@@ -16,23 +17,29 @@ export default function Post({postData}) {
 }
 
 export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
-  const res = await fetch('https://lifeviawindow.vercel.app//api/postsids')
-  const posts = await res.json()
-
-  // Get the paths we want to pre-render based on posts
-  const paths = posts.map((post) => ({
-    params: { id: post.id },
-  }))
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
+  var paths = [];
+  const blogsRef = fire.firestore().collection('blog')
+  const snapshot = await blogsRef.get();
+  snapshot.forEach(doc => {
+    paths.push({
+      params: { id: doc.id },
+    })
+  });
   return { paths, fallback: false }
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:3000/api/posts/${params.id}`)
-  const postData = await res.json()
+  var postData;
+  const blogRef = fire.firestore().collection('blog').doc(params.id);
+  const doc = await blogRef.get();
+  if (!doc.exists) {
+    postData={
+      content:'Do  not exist',
+      title:'error'
+    }
+  } else {
+    postData=doc.data();
+  }
   return {
     props: {
       postData
