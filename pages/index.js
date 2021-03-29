@@ -6,7 +6,8 @@ import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import fire from "../config/fire-config";
 
-export default function Home({allPostsData}) {  
+export default function Home({allPostsData}) { 
+  console.log(window.location.origin); 
   return (
     <Layout home>
       <Head>
@@ -37,7 +38,7 @@ export default function Home({allPostsData}) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch('http://localhost:3000/api/posts')
+  const res = await fetch('https://lifeviawindow.vercel.app//api/posts')
   const allPostsData = await res.json()
   return {
     props: {

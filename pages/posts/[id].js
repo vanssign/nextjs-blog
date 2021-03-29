@@ -17,7 +17,7 @@ export default function Post({postData}) {
 
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
-  const res = await fetch('http://localhost:3000/api/postsids')
+  const res = await fetch('https://lifeviawindow.vercel.app//api/postsids')
   const posts = await res.json()
 
   // Get the paths we want to pre-render based on posts
