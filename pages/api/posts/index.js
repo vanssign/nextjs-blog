@@ -1,4 +1,4 @@
-import fire from "../../config/fire-config";
+import fire from "../../../config/fire-config";
 
 export default (req, res) => {
         fire.firestore()

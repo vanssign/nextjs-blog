@@ -2,7 +2,7 @@ import CreatePost from '../components/CreatePost';
 import Head from 'next/head'
 import Layout from '../components/layout';
 
-export default function Home(){
+export default function Create(){
     return(
         <Layout create>
             <Head>
