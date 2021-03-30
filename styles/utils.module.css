@@ -50,3 +50,18 @@
   .lightText {
     color: #666;
   }
+
+  .btnPrimary{
+    background-color:#0070f3;
+    color: #ffffff;
+  }
+  .btnPrimary:hover{
+    background-color:blue;
+  }
+  .textSuccess{
+    color:#00A572
+  }
+  .bgBlack{
+    background-color: black;
+    color:white !important;
+  }

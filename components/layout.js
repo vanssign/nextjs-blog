@@ -7,8 +7,21 @@ import Link from "next/link";
 const BLOG_NAME = "Life Via Window";
 export const siteTitle = "Life Via Window | Blog";
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, home,create }) {
   return (
+    <>
+    <div style={{width:'100%',backgroundColor:'black',color:'white',position:'fixed',top:0}} className="flexContainer">
+      <Link href="/"><a style={{color:'white'}}>Home</a>
+      </Link>
+      <div>
+        <div>
+          {/* <Image src="/images/user-icon-white.jpg" alt="Login accessory icon"
+        width={30}
+        height={30}/> */}
+        <Link href="/create"><a style={{color:'white'}}>+ New Post</a>
+        </Link>
+        </div></div>
+    </div>
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
@@ -39,7 +52,8 @@ export default function Layout({ children, home }) {
             <h1 className={utilStyles.heading2Xl}>{BLOG_NAME}</h1>
           </>
         ) : (
-          <>
+          create?(<></>):
+            (<>
             <Link href="/">
               <a>
                 <Image
@@ -57,7 +71,7 @@ export default function Layout({ children, home }) {
                 <a className={utilStyles.colorInherit}>{BLOG_NAME}</a>
               </Link>
             </h2>
-          </>
+          </> )
         )}
       </header>
       <main>{children}</main>
@@ -69,5 +83,6 @@ export default function Layout({ children, home }) {
         </div>
       )}
     </div>
+    </>
   );
 }

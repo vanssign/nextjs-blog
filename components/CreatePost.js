@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import fire from '../config/fire-config';
+import utilStyles from "../styles/utils.module.css";
+
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -18,19 +20,18 @@ const CreatePost = () => {
   }
   return (
     <div>
-      {notification}
       <form onSubmit={handleSubmit}>
+        <span className={`${utilStyles.textSuccess}`}>{notification}</span> <button type="submit" style={{
+          float: 'right'
+        }} className={`${utilStyles.btnPrimary}`}>Publish</button>
         <div>
-          Title<br />
-          <input type="text" value={title} 
-           onChange={({target}) => setTitle(target.value)} />
+          <textarea style={{ width: '100%' }} value={title} className={`${utilStyles.headingLg}`}
+            onChange={({ target }) => setTitle(target.value)} placeholder="Title" />
         </div>
         <div>
-          Content<br />
-          <textarea value={content} 
-           onChange={({target}) => setContent(target.value)} />
+          <textarea style={{ width: '100%', height: '70vh' }} value={content} className={`${utilStyles.headingMd}`}
+            onChange={({ target }) => setContent(target.value)} placeholder="Content" />
         </div>
-        <button type="submit">Save</button>
       </form>
     </div>
   )

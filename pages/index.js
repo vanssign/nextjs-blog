@@ -24,7 +24,7 @@ export default function Home({allPostsData}) {
                 <a>{post.title}</a>
               </Link>
               <br />
-              <small>{post.content}</small>
+              <small style={{whiteSpace: 'pre-wrap'}}>{post.content}</small>
               {/* <small className={utilStyles.lightText}>
                 <Date dateString={date} />
               </small> */}

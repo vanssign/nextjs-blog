@@ -25,3 +25,21 @@ img {
   max-width: 100%;
   display: block;
 }
+
+button{
+  padding:8px 16px;
+  font-size:large;
+  border:0;
+  border-radius: 8%;
+}
+
+button:hover{
+  cursor:pointer;
+}
+
+.flexContainer{
+  padding:0px 24px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}
