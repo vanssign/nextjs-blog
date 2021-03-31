@@ -3,6 +3,7 @@ import Layout from '../../components/layout'
 import Date from '../../components/date'
 import fire from "../../config/fire-config";
 import utilStyles from '../../styles/utils.module.css'
+import { motion } from "framer-motion"
 
 export default function Post({ postData }) {
   return (
@@ -10,7 +11,7 @@ export default function Post({ postData }) {
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <h1 className={utilStyles.headingLg}>{postData.title}</h1>
+      <h2 layoutId="postTitle" className={utilStyles.headingLg}>{postData.title}</h2>
       <p style={{whiteSpace: 'pre-wrap'}}>{postData.content}</p>
     </Layout>
   )

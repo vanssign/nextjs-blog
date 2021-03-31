@@ -6,7 +6,7 @@ import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import fire from "../config/fire-config";
 
-export default function Home({allPostsData}) { 
+export default function Home({ allPostsData }) {
   return (
     <Layout home>
       <Head>
@@ -24,10 +24,6 @@ export default function Home({allPostsData}) {
                 <a>{post.title}</a>
               </Link>
               <br />
-              <small style={{whiteSpace: 'pre-wrap'}}>{post.content}</small>
-              {/* <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small> */}
             </li>
           ))}
         </ul>
@@ -37,12 +33,14 @@ export default function Home({allPostsData}) {
 }
 
 export async function getStaticProps() {
-  var allPostsData=[];
-  const blogsRef=fire.firestore().collection('blog')
-  const snapshot=await blogsRef.get();
+  var allPostsData = [];
+  const blogsRef = fire.firestore().collection('blog')
+  const snapshot = await blogsRef.get();
   snapshot.forEach(doc => {
-    allPostsData.push({id:doc.id,
-    ...doc.data()})
+    allPostsData.push({
+      id: doc.id,
+      ...doc.data()
+    })
   });
   return {
     props: {

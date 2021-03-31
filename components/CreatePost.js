@@ -5,6 +5,7 @@ import utilStyles from "../styles/utils.module.css";
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [excerpt, setExcerpt] = useState('');
   const [notification, setNotification] = useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -13,6 +14,8 @@ const CreatePost = () => {
       .add({
         title: title,
         content: content,
+        excerpt: excerpt
+        // created:fire.firestore.FieldValue.serverTimestamp()
       });
     setTitle('');
     setContent('');
@@ -31,6 +34,10 @@ const CreatePost = () => {
         <div>
           <textarea style={{ width: '100%', height: '70vh' }} value={content} className={`${utilStyles.headingMd}`}
             onChange={({ target }) => setContent(target.value)} placeholder="Content" />
+        </div>
+        <div>
+          <textarea style={{ width: '100%', height: '70vh' }} value={excerpt} className={`${utilStyles.headingMd}`}
+            onChange={({ target }) => setExcerpt(target.value)} placeholder="Excerpt, write a small description of the blog post" />
         </div>
       </form>
     </div>

@@ -3,28 +3,47 @@ import Image from "next/image";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import fire from '../config/fire-config';
+import { useState } from 'react';
 
 const BLOG_NAME = "Life Via Window";
 export const siteTitle = "Life Via Window | Blog";
 
 export default function Layout({ children, home, create }) {
+  const [LoginStatus, setLoginStatus] = useState(false);
+  fire.auth()
+    .onAuthStateChanged((user) => {
+      if (user) {
+        setLoginStatus(true)
+      }
+      else {
+        setLoginStatus(false)
+      }
+    })
+  const handleLogout = () => {
+    fire.auth()
+      .signOut()
+  }
   return (
     <>
-      <div style={{ width: '100%', backgroundColor: 'black', color: 'white', position: 'fixed', top: 0 }} className="flexContainer">
+      <div style={{ width: '100%', backgroundColor: 'black', color: 'white', position: 'fixed', top: 0, zIndex: 2 }} className="flexContainer">
         <div>
-          <Link href="/"><a style={{ color: 'white' }}>Blog</a>
+          <Link href="/"><a style={{ color: 'white' }}> Blog</a>
           </Link>
           {" | "}
           <Link href="/apiinfo"><a style={{ color: 'white' }}>API Info</a>
           </Link></div>
+        <button onClick={() => document.documentElement.scrollTop = 0} style={{ backgroundColor: 'transparent', color: 'white', paddingLeft: '5px', paddingRight: '5px', paddingTop: '0px', paddingBottom: '0px', fontSize: '30px' }}>
+          <strong> ᨑ </strong></button>
         <div>
-          <div>
-            {/* <Image src="/images/user-icon-white.jpg" alt="Login accessory icon"
-        width={30}
-        height={30}/> */}
+          {LoginStatus ? (<>
             <Link href="/create"><a style={{ color: 'white' }}>+ New Post</a>
-            </Link>
-          </div></div>
+            </Link>{" | "}<button onClick={() => handleLogout()}>Logout</button>
+          </>) : (<>
+            <Link href="/auth/register"><a style={{ color: 'white' }}>Register</a></Link>{" | "}<Link href="/auth/login"><a style={{ color: 'white' }}>Login</a></Link>
+          </>)}
+        </div>
       </div>
       <div className={styles.container}>
         <Head>
