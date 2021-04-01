@@ -3,6 +3,8 @@ import fire from '../../config/fire-config';
 import { useRouter } from 'next/router'
 import Layout from '../../components/layout';
 import Link from "next/link";
+import Head from "next/head";
+
 export default function Login(){
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,8 +14,8 @@ export default function Login(){
     e.preventDefault();
     fire.auth()
       .signInWithEmailAndPassword(username, password)
+      .then(()=>router.push("/"))
       .catch((err) => {
-        console.log(err.code, err.message)
         setNotification(err.message)
         setTimeout(() => {
           setNotification('')
@@ -21,19 +23,22 @@ export default function Login(){
       })
     setUsername('')
     setPassword('')
-    router.push("/")
   }
   return (
     <Layout>
+      <Head>
+        <title>Login | Blog</title>
+      </Head>
       <h1>Login</h1>
       {notify}
       <form onSubmit={handleLogin}>
-        <input type="text" value={username} placeholder="Email" 
-        onChange= {({target}) => setUsername(target.value)} />
+        Email<br/><input type="text" value={username} 
+        onChange={({target}) => setUsername(target.value)} /> 
         <br />
-        <input type="password" value={password} placeholder="password"
-        onChange={({target}) => setPassword(target.value)} />
+        Password<br/><input type="password" value={password} 
+        onChange={({target}) => setPassword(target.value)} /> 
         <br />
+        <br/>
         <button type="submit">Login</button>
       </form>
       <small>Don't have an account? <Link href="/auth/register">Register now !</Link></small>

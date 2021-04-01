@@ -1,8 +1,10 @@
-import { useState } from 'react'; 
+import { useState } from 'react';
 import fire from '../../config/fire-config';
 import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
-export default function Register(){
+import Head from 'next/head';
+
+export default function Register() {
   const router = useRouter();
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,35 +14,45 @@ export default function Register(){
     e.preventDefault();
     if (password !== passConf) {
       setNotification(
-       'Passwords do no match!'
+        'Passwords do no match!'
       )
       setTimeout(() => {
         setNotification('')
-      }, 2000)
+      }, 5000)
       setPassword('');
       setPassConf('');
       return null;
-      }
+    }
     fire.auth()
       .createUserWithEmailAndPassword(userName, password)
+      .then(()=>router.push("/"))
       .catch((err) => {
-        console.log(err.code, err.message)
+        setNotification(err.message);
+        setTimeout(() => {
+          setNotification('')
+        }, 6000)
+        setUsername('')
+        setPassword('');
+        setPassConf('');
       });
-    router.push("/")
   }
   return (
     <Layout>
+      <Head>
+        <title>Register | Blog</title>
+      </Head>
       <h1>Create new user</h1>
-        {notification}
+      <small>{notification}</small>
       <form onSubmit={handleLogin}>
-        Email: <input type="text" value={userName} 
-        onChange={({target}) => setUsername(target.value)} /> 
+        Email<br /> <input type="text" value={userName}
+          onChange={({ target }) => setUsername(target.value)} />
         <br />
-        Password: <input type="password" value={password} 
-        onChange={({target}) => setPassword(target.value)} /> 
+        Password<br /> <input type="password" value={password}
+          onChange={({ target }) => setPassword(target.value)} />
         <br />
-        Password conf: <input type="password" value={passConf}    
-        onChange={({target}) => setPassConf(target.value)} /> 
+        Confirm Password<br /> <input type="text" value={passConf}
+          onChange={({ target }) => setPassConf(target.value)} />
+        <br />
         <br />
         <button type="submit">SignUp</button>
       </form>

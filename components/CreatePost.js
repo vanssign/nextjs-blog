@@ -36,7 +36,7 @@ const CreatePost = () => {
             onChange={({ target }) => setContent(target.value)} placeholder="Content" />
         </div>
         <div>
-          <textarea style={{ width: '100%', height: '70vh' }} value={excerpt} className={`${utilStyles.headingMd}`}
+          <textarea style={{ width: '100%', height: '20vh' }} value={excerpt} className={`${utilStyles.headingMd}`}
             onChange={({ target }) => setExcerpt(target.value)} placeholder="Excerpt, write a small description of the blog post" />
         </div>
       </form>

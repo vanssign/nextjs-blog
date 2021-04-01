@@ -11,7 +11,7 @@ export default function Post({ postData }) {
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <h2 layoutId="postTitle" className={utilStyles.headingLg}>{postData.title}</h2>
+      <h2 className={utilStyles.headingLg}>{postData.title}</h2>
       <p style={{whiteSpace: 'pre-wrap'}}>{postData.content}</p>
     </Layout>
   )
