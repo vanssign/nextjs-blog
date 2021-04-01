@@ -28,20 +28,20 @@ export default function Layout({ children, home, create }) {
   return (
     <>
       <div style={{ width: '100%', backgroundColor: 'black', color: 'white', position: 'fixed', top: 0, zIndex: 2 }} className="flexContainer">
-        <div>
+        <div style={{fontSize:'0.8em'}}>
           <Link href="/"><a style={{ color: 'white' }}> Blog</a>
           </Link>
           {" | "}
-          <Link href="/apiinfo"><a style={{ color: 'white' }}>API Info</a>
+          <Link href="/apiinfo"><a style={{ color: 'white' }}>API</a>
           </Link></div>
-        <button onClick={() => document.documentElement.scrollTop = 0} style={{ backgroundColor: 'transparent', color: 'white', paddingLeft: '5px', paddingRight: '5px', paddingTop: '0px', paddingBottom: '0px', fontSize: '30px' }}>
+        <button onClick={() => document.documentElement.scrollTop = 0} style={{ backgroundColor: 'transparent', color: 'white', paddingLeft: '5px', paddingRight: '5px', paddingTop: '0px', paddingBottom: '0px', fontSize: '24px' }}>
           <strong> ᨑ </strong></button>
         <div>
           {LoginStatus ? (<>
-            <Link href="/create"><a style={{ color: 'white' }}>+ New Post</a>
-            </Link>{" | "}<button onClick={() => handleLogout()}>Logout</button>
+            <Link href="/create"><a style={{ color: 'white',fontSize:'0.75em' }}>+ New Post</a>
+            </Link>{" | "}<button onClick={() => handleLogout()} style={{fontSize:'0.75em'}}>Logout</button>
           </>) : (<>
-            <Link href="/auth/register"><a style={{ color: 'white' }}>Register</a></Link>{" | "}<Link href="/auth/login"><a style={{ color: 'white' }}>Login</a></Link>
+            <Link href="/auth/register"><a style={{ color: 'white',fontSize:'0.75em' }}>Register</a></Link>{" | "}<Link href="/auth/login"><a style={{ color: 'white',fontSize:'0.75em' }}>Login</a></Link>
           </>)}
         </div>
       </div>
