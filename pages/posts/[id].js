@@ -26,7 +26,7 @@ export async function getStaticPaths() {
       params: { id: doc.id },
     })
   });
-  return { paths, fallback: true }
+  return { paths, fallback: 'blocking' }
 }
 
 export async function getStaticProps({ params }) {
